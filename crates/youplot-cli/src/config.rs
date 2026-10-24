@@ -208,10 +208,11 @@ fn strip_comment(s: &str) -> &str {
         match c {
             '\'' if !in_double => in_single = !in_single,
             '"' if !in_single => in_double = !in_double,
-            '#' if !in_single && !in_double => {
-                if i == 0 || bytes[i - 1].is_ascii_whitespace() {
-                    return &s[..i];
-                }
+            '#' if !in_single
+                && !in_double
+                && (i == 0 || bytes[i - 1].is_ascii_whitespace()) =>
+            {
+                return &s[..i];
             }
             _ => {}
         }
