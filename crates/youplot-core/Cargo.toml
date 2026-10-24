@@ -1,0 +1,13 @@
+[package]
+name = "youplot-core"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Unicode plotting library (Rust port of YouPlot's backend)"
+
+[lib]
+name = "youplot_core"
+
+[dependencies]
+num-bigint = "0.4"
+num-traits = "0.2"

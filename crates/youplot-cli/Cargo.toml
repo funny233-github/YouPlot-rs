@@ -1,0 +1,18 @@
+[package]
+name = "youplot-cli"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "A command line tool for Unicode Plotting (Rust port of YouPlot)"
+
+[dependencies]
+youplot-core = { path = "../youplot-core" }
+encoding_rs = "0.8"
+
+[[bin]]
+name = "uplot"
+path = "src/bin/uplot.rs"
+
+[[bin]]
+name = "youplot"
+path = "src/bin/youplot.rs"
