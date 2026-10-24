@@ -340,11 +340,7 @@ fn round_by_rational_approx(x: f64, ndigits: i32) -> f64 {
 
 fn pow10i(n: i32) -> f64 {
     // C's pow(10, n), used by ruby/numeric.c.
-    if n >= 0 {
-        10f64.powf(n as f64)
-    } else {
-        10f64.powf(n as f64)
-    }
+    10f64.powf(n as f64)
 }
 
 /// Ruby `ceil_neg_log10`.
@@ -392,10 +388,8 @@ pub fn float_step_values(beg: f64, end: f64, unit: f64) -> Vec<f64> {
     let n = size as i64;
     for i in 0..=n {
         let mut d = beg + unit * (i as f64);
-        if i == n {
-            if (unit > 0.0 && d > end) || (unit < 0.0 && d < end) {
-                d = end;
-            }
+        if i == n && ((unit > 0.0 && d > end) || (unit < 0.0 && d < end)) {
+            d = end;
         }
         if (unit > 0.0 && d > end) || (unit < 0.0 && d < end) {
             break;
@@ -420,14 +414,12 @@ fn float_step_size(beg: f64, end: f64, unit: f64) -> f64 {
         } else {
             n = (n + err).floor();
         }
+    } else if n > -1.0 {
+        n = 0.0;
+    } else if n > -1.0 - err {
+        n = -1.0;
     } else {
-        if n > -1.0 {
-            n = 0.0;
-        } else if n > -1.0 - err {
-            n = -1.0;
-        } else {
-            n = (n - err).ceil();
-        }
+        n = (n - err).ceil();
     }
     n
 }

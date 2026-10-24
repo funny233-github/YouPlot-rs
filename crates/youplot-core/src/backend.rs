@@ -9,7 +9,7 @@ use crate::stats;
 use crate::{Data, Error, Params, Result};
 
 pub enum Rendered {
-    Plot(Plot),
+    Plot(Box<Plot>),
     Text(String),
 }
 
@@ -197,7 +197,7 @@ fn barplot_impl(
         params,
     )
     .map_err(Error::Argument)?;
-    Ok(Rendered::Plot(plot))
+    Ok(Rendered::Plot(Box::new(plot)))
 }
 
 fn histogram(data: &Data, params: &mut Params) -> Result<Rendered> {
@@ -242,8 +242,7 @@ fn histogram(data: &Data, params: &mut Params) -> Result<Rendered> {
     let r_str = if hist.closed_right() { "]" } else { ")" };
 
     let mut labels: Vec<Option<String>> = Vec::with_capacity(hist.weights.len());
-    for i in 0..hist.weights.len() {
-        let (v1, a1l, a1r, v2, a2l, a2r) = &parts[i];
+    for (v1, a1l, a1r, v2, a2l, a2r) in parts.iter().take(hist.weights.len()) {
         let mut label = String::new();
         label.push_str("\u{1b}[90m");
         label.push_str(l_str);
@@ -287,7 +286,7 @@ fn histogram(data: &Data, params: &mut Params) -> Result<Rendered> {
         params,
     )
     .map_err(Error::Argument)?;
-    Ok(Rendered::Plot(plot))
+    Ok(Rendered::Plot(Box::new(plot)))
 }
 
 fn split_len(s: &str) -> (usize, usize) {
@@ -437,7 +436,7 @@ fn plot_xyy(data: &Data, method: Method, params: &mut Params) -> Result<Rendered
         .map_err(Error::Argument)?;
     }
     series.clear();
-    Ok(Rendered::Plot(plot))
+    Ok(Rendered::Plot(Box::new(plot)))
 }
 
 fn plot_xyxy(data: &Data, method: Method, params: &mut Params) -> Result<Rendered> {
@@ -484,7 +483,7 @@ fn plot_xyxy(data: &Data, method: Method, params: &mut Params) -> Result<Rendere
         }
         .map_err(Error::Argument)?;
     }
-    Ok(Rendered::Plot(plot))
+    Ok(Rendered::Plot(Box::new(plot)))
 }
 
 fn plot_fmt(data: &Data, fmt: &str, method: Method, params: &mut Params) -> Result<Rendered> {
@@ -512,7 +511,7 @@ fn line(data: &Data, params: &mut Params, fmt: &str) -> Result<Rendered> {
         let color = color_option(params, true)?;
         let name = params.name.clone();
         let plot = grid::lineplot(&x, &y, params, color, name).map_err(Error::Argument)?;
-        return Ok(Rendered::Plot(plot));
+        return Ok(Rendered::Plot(Box::new(plot)));
     }
 
     let (x_col, y_col) = if fmt == "yx" { (1, 0) } else { (0, 1) };
@@ -538,7 +537,7 @@ fn line(data: &Data, params: &mut Params, fmt: &str) -> Result<Rendered> {
     let color = color_option(params, true)?;
     let name = params.name.clone();
     let plot = grid::lineplot(&x, &y, params, color, name).map_err(Error::Argument)?;
-    Ok(Rendered::Plot(plot))
+    Ok(Rendered::Plot(Box::new(plot)))
 }
 
 fn inspect_headers(headers: &Option<Vec<Option<String>>>) -> String {
@@ -597,7 +596,7 @@ fn check_series_size(data: &Data, fmt: &str) -> Result<()> {
         eprintln!("The last item is : \u{1b}[35m\"{}\"\u{1b}[0m", last);
         return Err(Error::marker());
     }
-    if fmt == "xyxy" && series.len() % 2 != 0 {
+    if fmt == "xyxy" && !series.len().is_multiple_of(2) {
         eprintln!("YouPlot: In the xyxy format, the number of series must be even.");
         eprintln!();
         eprintln!(
@@ -622,7 +621,7 @@ fn boxplot_impl(data: &Data, params: &mut Params) -> Result<Rendered> {
         None => (1..=data.series.len()).map(|i| Some(i.to_string())).collect(),
     };
     let plot = boxplot::boxplot(headers, &data.series, params).map_err(Error::Argument)?;
-    Ok(Rendered::Plot(plot))
+    Ok(Rendered::Plot(Box::new(plot)))
 }
 
 const TEXT_COLORS: &[(&str, &str)] = &[

@@ -143,7 +143,7 @@ pub fn load(path: &str) -> Result<Config> {
     let text = std::fs::read_to_string(path).map_err(|e| {
         Error::Message(format!("{} @ rb_sysopen - {}", io_message(&e), path))
     })?;
-    let entries = parse_yaml(&text).map_err(|m| Error::Message(m))?;
+    let entries = parse_yaml(&text).map_err(Error::Message)?;
     Ok(Config {
         path: path.to_string(),
         entries,

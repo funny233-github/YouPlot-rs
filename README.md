@@ -65,6 +65,7 @@ target/release/uplot colors
 
 ```sh
 cargo test                                   # everything
+cargo clippy --all-targets                   # lint (clean)
 cargo test -p youplot-core                   # numeric/DSV/stats unit tests
 cargo test -p youplot-cli --test lineplot    # one feature
 cargo test -p youplot-cli --test histogram

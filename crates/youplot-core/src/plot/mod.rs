@@ -250,13 +250,13 @@ impl Plot {
     }
 
     pub fn title_given(&self) -> bool {
-        self.title.as_deref().map_or(false, |s| !s.is_empty())
+        self.title.as_deref().is_some_and(|s| !s.is_empty())
     }
     pub fn xlabel_given(&self) -> bool {
-        self.xlabel.as_deref().map_or(false, |s| !s.is_empty())
+        self.xlabel.as_deref().is_some_and(|s| !s.is_empty())
     }
     pub fn ylabel_given(&self) -> bool {
-        self.ylabel.as_deref().map_or(false, |s| !s.is_empty())
+        self.ylabel.as_deref().is_some_and(|s| !s.is_empty())
     }
     pub fn ylabel_length(&self) -> usize {
         self.ylabel.as_deref().map(str_len).unwrap_or(0)
@@ -286,7 +286,7 @@ impl Plot {
                     let empty = self
                         .labels_left
                         .get(&(row as usize))
-                        .map_or(true, |v| v.as_deref().unwrap_or("").is_empty());
+                        .is_none_or(|v| v.as_deref().unwrap_or("").is_empty());
                     if empty {
                         self.labels_left.insert(row as usize, value);
                         self.colors_left.insert(row as usize, color);
@@ -299,7 +299,7 @@ impl Plot {
                     let empty = self
                         .labels_right
                         .get(&(row as usize))
-                        .map_or(true, |v| v.as_deref().unwrap_or("").is_empty());
+                        .is_none_or(|v| v.as_deref().unwrap_or("").is_empty());
                     if empty {
                         self.labels_right.insert(row as usize, value);
                         self.colors_right.insert(row as usize, color);

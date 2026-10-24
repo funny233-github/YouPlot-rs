@@ -67,25 +67,22 @@ General options:
 
 fn group_options(command: &str) -> Option<String> {
     let s = match command {
-        "barplot" | "bar" => format!(
-            "        --xscale STR        axis scaling (log, ln, log10, lg, log2, lb)
+        "barplot" | "bar" => "        --xscale STR        axis scaling (log, ln, log10, lg, log2, lb)
         --fmt STR           xy : header is like x, y...
                             yx : header is like y, x...
         --symbol STR        character to be used to plot the bars
 "
-        ),
-        "count" | "c" => format!(
-            "        --xscale STR        axis scaling (log, ln, log10, lg, log2, lb)
+        .to_string(),
+        "count" | "c" => "        --xscale STR        axis scaling (log, ln, log10, lg, log2, lb)
         --symbol STR        character to be used to plot the bars
     -r, --reverse           reverse the result of comparisons
 "
-        ),
-        "histogram" | "hist" => format!(
-            "    -n, --nbins INT         approximate number of bins
+        .to_string(),
+        "histogram" | "hist" => "    -n, --nbins INT         approximate number of bins
         --closed STR        side of the intervals to be closed [left]
         --symbol STR        character to be used to plot the bars
 "
-        ),
+        .to_string(),
         "lineplot" | "line" | "l" => format!(
             "        --xlim FLOAT,FLOAT  plotting range for the x coordinate
         --ylim FLOAT,FLOAT  plotting range for the y coordinate
@@ -108,14 +105,12 @@ fn group_options(command: &str) -> Option<String> {
 ",
             canvas_types().join(", ")
         ),
-        "boxplot" | "box" => format!(
-            "        --xlim FLOAT,FLOAT  plotting range for the x coordinate
+        "boxplot" | "box" => "        --xlim FLOAT,FLOAT  plotting range for the x coordinate
 "
-        ),
-        "colors" | "color" | "colours" | "colour" => format!(
-            "    -n, --names             show color names only
+        .to_string(),
+        "colors" | "color" | "colours" | "colour" => "    -n, --names             show color names only
 "
-        ),
+        .to_string(),
         _ => return None,
     };
     Some(s)
@@ -271,7 +266,7 @@ fn find_long<'a>(specs: &'a [Spec], name: &str) -> std::result::Result<&'a Spec,
     }
 }
 
-fn find_short<'a>(specs: &'a [Spec], c: char) -> Option<&'a Spec> {
+fn find_short(specs: &[Spec], c: char) -> Option<&Spec> {
     specs.iter().find(|s| s.short == Some(c))
 }
 
@@ -573,10 +568,7 @@ fn parse_tokens(
 fn show_config_info() {
     let mut options = Options::default();
     let mut params = Params::default();
-    let cfg_path = match config::find_config_file() {
-        Some(p) => Some(p),
-        None => None,
-    };
+    let cfg_path = config::find_config_file();
     let loaded = match &cfg_path {
         Some(p) => match config::load(p) {
             Ok(c) => Some(c),
