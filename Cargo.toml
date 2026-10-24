@@ -4,6 +4,6 @@ members = ["crates/youplot-core", "crates/youplot-cli"]
 
 [workspace.package]
 version = "0.5.0"
-authors = ["The YouPlot-rs Authors"]
+authors = ["funny_233 <83470506+funny233-github@users.noreply.github.com>", "The YouPlot-rs Authors"]
 edition = "2021"
 license = "MIT"

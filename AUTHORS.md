@@ -2,6 +2,8 @@
 
 ## YouPlot-rs (this Rust port)
 
+- funny_233 <83470506+funny233-github@users.noreply.github.com>
+  Project initiator and maintainer
 - The YouPlot-rs Authors
 
 ## Original YouPlot (Ruby)
