@@ -1,6 +1,9 @@
 //! Command-line interface for YouPlot. All plotting logic lives in
 //! `youplot-core`; this crate owns argument parsing, config files, terminal
 //! I/O and progressive mode.
+//!
+//! A Rust port of YouPlot (<https://github.com/red-data-tools/YouPlot>,
+//! MIT, Copyright (c) 2020 kojix2, 2025 Red Data Tools). See `NOTICE.md`.
 
 pub mod cli;
 pub mod command;

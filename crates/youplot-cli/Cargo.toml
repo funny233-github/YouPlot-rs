@@ -1,6 +1,7 @@
 [package]
 name = "youplot-cli"
 version.workspace = true
+authors.workspace = true
 edition.workspace = true
 license.workspace = true
 description = "A command line tool for Unicode Plotting (Rust port of YouPlot)"

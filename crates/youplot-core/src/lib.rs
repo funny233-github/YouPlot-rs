@@ -2,6 +2,11 @@
 //!
 //! The CLI lives in the `youplot-cli` crate. Everything in this crate is
 //! independent of argument parsing, configuration files and terminal I/O.
+//!
+//! Ported from YouPlot (<https://github.com/red-data-tools/YouPlot>,
+//! MIT, Copyright (c) 2020 kojix2, 2025 Red Data Tools) and UnicodePlot
+//! (<https://github.com/red-data-tools/unicode_plot.rb>, MIT,
+//! Copyright (c) 2019 Kenta Murata). See `NOTICE.md` for license texts.
 
 pub mod aggregation;
 pub mod backend;

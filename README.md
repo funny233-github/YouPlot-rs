@@ -1,6 +1,6 @@
 # YouPlot-rs
 
-A Rust port of [YouPlot](https://github.com/red-data-tools/YouPlot), including a
+A Rust port (MIT, see [LICENSE](LICENSE)) of [YouPlot](https://github.com/red-data-tools/YouPlot), including a
 faithful port of the `unicode_plot.rb` rendering engine. Plot output is
 byte-for-byte compatible with the Ruby implementation, including Ruby's
 `Float#to_s` / `Float#round` quirks, ANSI styling and progressive mode.
@@ -75,6 +75,22 @@ cargo test -p youplot-cli --test config
 The CLI tests in `crates/youplot-cli/tests/fixtures/` are the golden outputs
 from the original Ruby YouPlot test suite. They compare the exact bytes of
 stdout/stderr, so they cover both plot geometry and formatting.
+
+## Credits
+
+This is a Rust port of [YouPlot](https://github.com/red-data-tools/YouPlot)
+by kojix2 and Red Data Tools, whose plotting backend is a port of
+[unicode_plot.rb](https://github.com/red-data-tools/unicode_plot.rb) by
+Kenta Murata (mrkn). Both upstream projects are MIT-licensed.
+
+See [AUTHORS.md](AUTHORS.md) and [NOTICE.md](NOTICE.md) for details and the
+upstream license texts.
+
+## License
+
+MIT. See [LICENSE](LICENSE). Portions are derived from the MIT-licensed
+YouPlot and unicode_plot.rb projects; their notices are preserved in
+[NOTICE.md](NOTICE.md).
 
 ## Compatibility notes
 
