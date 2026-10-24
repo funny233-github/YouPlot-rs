@@ -1,5 +1,5 @@
 mod common;
-use common::{fixture, run, run_fixture};
+use common::{fixture, run};
 
 fn text(b: &[u8]) -> String { String::from_utf8_lossy(b).into_owned() }
 

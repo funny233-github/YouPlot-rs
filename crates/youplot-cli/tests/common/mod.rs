@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+
 //! Shared helpers for the golden CLI tests.
 //!
 //! Each test runs the real `uplot` binary with a fixture on stdin and compares
