@@ -29,8 +29,6 @@ fn no_command_prints_main_help_to_stderr() {
 #[test]
 fn help_goes_to_stdout() {
     for args in [vec!["--help"], vec!["help"]] {
-        let r = run(&[], b"");
-        let _ = r; // keep helper usage uniform
         let r = run(&args, b"");
         assert_eq!(r.code(), 0);
         let out = text(r.stdout());
